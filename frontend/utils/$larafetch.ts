@@ -54,16 +54,19 @@ export async function $larafetch<T, R extends ResponseType = "json">(
       headers,
       credentials: "include",
     });
-  } catch (error) {
+  } catch (error:any) {
     if (!(error instanceof FetchError)) throw error;
     if (
       redirectIfNotAuthenticated &&
       [401, 419].includes(error?.response?.status)
     ) {
-      await navigateTo("/");
+      await navigateTo("/login");
     }
     if (redirectIfNotVerified && [409].includes(error?.response?.status)) {
       await navigateTo("/account-verify");
+    }
+    if ([422].includes(error?.response?.status) && error.response && error.response._data) {
+      return error.response;
     }
     throw error;
   }

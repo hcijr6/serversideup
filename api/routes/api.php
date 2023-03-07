@@ -16,4 +16,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'v1'], function(){
     Route::get('/user', [UserController::class, 'show']);
+    Route::post('/user/getTable', [UserController::class, 'getTable']);
 });

@@ -1,9 +1,4 @@
-type User = {
-  name: string;
-  email?: string;
-  permission: string;
-  email_verified_at: string;
-};
+
 // Value is initialized in: ~/plugins/auth.ts
 export const useUser = () => {
   return useState<User>("user", () => undefined);
