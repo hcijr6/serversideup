@@ -15,10 +15,10 @@
           name="mail"
           placeholder="Email"
           autocomplete="off"
-          v-model="this.form.email"
+          v-model="form.email"
         />
         <span
-          v-for="message in this.validations.email"
+          v-for="message in validations.email"
           class="text-red-500 text-xs"
           >{{ message }}</span
         >
@@ -30,10 +30,10 @@
           name="password"
           placeholder="Password"
           autocomplete="off"
-          v-model="this.form.password"
+          v-model="form.password"
         />
         <span
-          v-for="message in this.validations.password"
+          v-for="message in validations.password"
           class="text-red-500 text-xs"
           >{{ message }}</span
         >

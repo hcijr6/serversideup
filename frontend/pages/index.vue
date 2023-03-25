@@ -5,7 +5,7 @@ definePageMeta({
 });
 </script>
 <template>
-  <div class="w-screen h-screen flex items-center justify-center">
+  <div class="p-5 flex items-center justify-center">
     <UsersTable></UsersTable>
   </div>
 </template>

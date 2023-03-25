@@ -18,7 +18,7 @@ class UserController extends Controller
         return response()->json($request->user());
     }
     public function getTable(Request $request)
-    {
-        return User::paginate(15)->toJson();
+    {   
+        return UserResource::collection(User::paginate($request->pagination));
     }
 }
