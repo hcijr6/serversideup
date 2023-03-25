@@ -1,6 +1,6 @@
 <template>
   <div
-    class="border border-black p-4 rounded-lg flex flex-col gap-5"
+    class="border border p-4 rounded-lg flex flex-col gap-5"
     :class="{ ' opacity-50	pointer-events-none	grayscale': loading }"
   >
     <div class="flex justify-between gap-1">
@@ -10,13 +10,13 @@
       <div class="flex gap-1">
         <button
           @click="getData"
-          class="bg-black text-white px-3 py-1 rounded-lg"
+          class="text-sm font-medium border rounded-lg px-3 py-1 cursor-pointer drop-shadow-sm hover:border-black hover:border ease-in-out transition-all bg-white"
         >
           Add
         </button>
         <button
           @click="logout"
-          class="bg-red-500 text-white px-3 py-1 rounded-lg"
+          class="text-sm font-medium border rounded-lg px-3 py-1 cursor-pointer drop-shadow-sm hover:border-black hover:border ease-in-out transition-all bg-white"
         >
           Logout
         </button>
@@ -25,7 +25,7 @@
     <div class="flex justify-between">
       <div class="flex gap-2 flex-wrap">
         <button
-          class="rounded-lg border px-3 py-1 border-black hover:bg-black hover:text-white transition-all ease-out"
+          class="text-sm font-medium border rounded-lg px-3 py-1 cursor-pointer drop-shadow-sm hover:border-black hover:border ease-in-out transition-all bg-white"
           @click="changePage(1)"
           v-if="tablePagination.current > 1"
         >
@@ -34,16 +34,16 @@
         <template v-for="n in tablePagination.range">
           <button
             @click="changePage(n)"
-            class="rounded-lg border px-3 py-1 border-black hover:bg-black hover:text-white transition-all ease-out"
+            class="text-sm font-medium border rounded-lg px-3 py-1 cursor-pointer drop-shadow-sm hover:border-black hover:border ease-in-out transition-all "
             :class="{
-              'bg-black text-white': n == tablePagination.current,
+              'border-black border': n == tablePagination.current,
             }"
           >
             {{ n }}
           </button>
         </template>
         <button
-          class="rounded-lg border px-3 py-1 border-black hover:bg-black hover:text-white transition-all ease-out"
+          class="text-sm font-medium border rounded-lg px-3 py-1 cursor-pointer drop-shadow-sm hover:border-black hover:border ease-in-out transition-all bg-white"
           @click="changePage(tablePagination.last)"
           v-if="tablePagination.current < tablePagination.last"
         >
@@ -51,7 +51,7 @@
         </button>
       </div>
       <div>
-        <select v-model="actualRequest.pagination" @change="changePagination" name="" id="" class="rounded-lg border px-3 py-1 cursor-pointer border-black transition-all ease-out">
+        <select v-model="actualRequest.pagination" @change="changePagination" name="" id="" class="text-sm font-medium border rounded-lg px-3 py-1 cursor-pointer drop-shadow-sm hover:border-black hover:border ease-in-out transition-all bg-white">
           <option value="15">15</option>
           <option value="25">25</option>
           <option value="35">35</option>
@@ -71,32 +71,20 @@
             {{ tableHeader }}
           </th>
           <th>
-            <button
-              class="rounded-lg border px-3 py-1 border-black hover:bg-black hover:text-white transition-all ease-out"
-            >
-              <EllipsisHorizontalIcon class="h-6 w-6" />
-            </button>
+            
           </th>
         </tr>
         <tr>
           <th class="text-left px-2">
             <input type="checkbox" name="" id="" />
           </th>
-          <th class="text-left py-2 pr-2">
-            <input class="border rounded w-full" type="text" />
-          </th>
-          <th class="text-left py-2 pr-2">
-            <input class="border rounded w-full" type="text" />
-          </th>
-          <th class="text-left py-2 pr-2">
-            <input class="border rounded w-full" type="text" />
-          </th>
-          <th class="text-left py-2 pr-2">
-            <input class="border rounded w-full" type="text" />
+          <th v-for="tableFilter in tableFilters" class="text-left py-2 pr-2">
+              <input v-if="tableFilter != false" class="text-sm font-medium border rounded-lg px-3 py-1 cursor-pointer drop-shadow-sm hover:border-black hover:border ease-in-out transition-all bg-white" type="text" />
+              <span v-else class="text-sm font-medium border rounded-lg px-3 py-1 cursor-pointer hover:border-black hover:border ease-in-out transition-all">Add</span>
           </th>
           <th class="text-right">
             <button
-              class="px-3 py-1 bg-blue-500 font-normal text-white rounded-lg "
+              class=" text-sm font-medium border rounded-lg px-3 py-1 cursor-pointer drop-shadow-sm hover:border-black hover:border ease-in-out transition-all bg-white"
             >
               Apply
             </button>
@@ -104,7 +92,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="border-gray-200 border-t" v-for="user in tableData">
+        <tr class="border-gray-200 border-b last:border-none rounded-lg" v-for="user in tableData">
           <td class="px-2">
             <input type="checkbox" class="" name="" id="" />
           </td>
@@ -113,7 +101,7 @@
           <td class="py-2 pr-2 text-sm">{{ user.created_at }}</td>
           <td class="py-2 pr-2 text-sm">{{ user.updated_at }}</td>
           <td class="text-right">
-            <button class="px-3 py-1 bg-black text-white text-right rounded-lg">
+            <button class="text-sm font-medium border rounded-lg px-3 py-1 cursor-pointer drop-shadow-sm hover:border-black hover:border ease-in-out transition-all bg-white">
               Edit
             </button>
           </td>
@@ -138,7 +126,15 @@ export default {
   data() {
     return {
       loading: false,
-      tableFilters: false,
+      tableFilters: {
+        name : {
+          type:'LIKE',
+          content: false
+        },
+        email: false,
+        created_at:false,
+        updated_at:false
+      },
       tableHeaders: ["Name", "Email", "Created At", "Updated At"],
       tableData: false,
       tablePagination: false,
@@ -156,6 +152,8 @@ export default {
       this.getData(true);
     },
     changePagination(){
+      this.actualRequest.page = 1;
+      this.tablePagination.current = 1;
       this.getData();
     },
     async getData(refresh = false) {
@@ -194,7 +192,6 @@ export default {
         this.tablePagination.current + (limit - 1) >
         this.tablePagination.last
       ) {
-        console.log(this.tablePagination.current, this.tablePagination.last);
         this.tablePagination.range = range(
           this.tablePagination.last - (limit - 1),
           this.tablePagination.last + 1
