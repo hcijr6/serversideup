@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
+use App\Http\Resources\UserResource;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +16,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return ['Laravel' => app()->version()];
+    $usersQuery= User::where('id','>',0);
+    $usersQuery->where('name','LIKE','%Mr%');
+    $users=$usersQuery->paginate();
+    return UserResource::collection($users);
+    // dd($users);
 });
 
 require __DIR__.'/auth.php';
