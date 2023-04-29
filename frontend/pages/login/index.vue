@@ -1,62 +1,110 @@
 <template>
-  <div
-    class="py-8 min-h-screen px-8 mx-auto max-w-screen-xl text-center lg:py-8 lg:px-12 flex justify-center items-center"
-  >
-    <div
-      class="flex h-full flex-col gap-2 w-fit p-10 border-black border-[1px]"
-    >
-      <div class="flex flex-col justify-start items-start">
-        <span class="font-bold text-2xl">Login</span>
+  <div class="grid min-h-screen md:grid-cols-2">
+    <div class="h-full w-full">
+      <div
+        class="flex h-full items-center justify-center px-8 pt-12 pb-20 duration-200 md:px-12 lg:px-16"
+      >
+        <div class="max-w-md flex-grow">
+          <div class="flex items-end gap-3">
+            
+          </div>
+          <div class="mt-4 flex w-full flex-col gap-2">
+            <div class="text-2xl font-medium">
+              <h1 slot="header" class="text-2xl font-medium">
+                Welcome to Hex
+              </h1>
+            </div>
+            <p slot="description" class="text-gray-800">
+              Hex helps you start building, managing and sharing your
+              Nuxt App in minutes, not days.
+            </p>
+            <div class="mt-4 flex flex-col gap-4">
+              <div
+                class="flex flex-col gap-4"
+              >
+                <div class="w-full">
+                  <label
+                    for="email"
+                    class="block text-sm font-medium text-gray-800"
+                    ><div class="flex items-center gap-2">
+                      Email
+                      <div></div>
+                    </div>
+                  </label>
+                  <div
+                    class="flex w-full rounded-md text-sm shadow-sm duration-200 mt-2"
+                  >
+                    <input
+                      type="text"
+                      name="mail"
+                      autocomplete="off"
+                      v-model="form.email"
+                      required=""
+                      spellcheck="false"
+                      placeholder="Enter your email"
+                      class="block flex-grow rounded-r-md border disabled:opacity-60 py-2.5 px-2 text-sm focus:ring-primary focus:border-primary border-gray-300 rounded-md"
+                    />
+                  </div>
+                </div>
+                <div class="w-full">
+                  <label
+                    for="password"
+                    class="block text-sm font-medium text-gray-800"
+                    ><div class="flex items-center gap-2">
+                      Password
+                      <div></div>
+                    </div>
+                  </label>
+                  <div
+                    class="flex w-full rounded-lg text-sm shadow-sm duration-200 mt-2"
+                  >
+                    <input
+                      type="password"
+                      name="password"
+                      autocomplete="off"
+                      v-model="form.password"
+                      required=""
+                      spellcheck="false"
+                      placeholder="••••••••••"
+                      class="block flex-grow rounded-r-md border disabled:opacity-60 py-2.5 px-2 text-sm border-gray-300 rounded-lg"
+                    />
+                  </div>
+                </div>
+                <button
+                  @click="thisLogin"
+                  class="mt-2 bg-primary focus:bg-gray-800 hover:bg-gray-800 bg-gray-800 block appearance-none rounded-lg text-sm font-medium text-white duration-100 focus:outline-none disabled:opacity-75 px-4 py-2.5"
+                >
+                  <div class="relative flex items-center justify-center">
+                    <div class="duration-100 undefined false">Sign in</div>
+                  </div>
+                </button>
+                <div class="text-sm text-gray-800">
+                  Already have an account?
+                  <NuxtLink class="text-primary font-medium underline" to="/register">Sign up</NuxtLink>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="flex flex-col justify-start items-start">
-        <label for="">Email</label>
-        <input
-          type="text"
-          name="mail"
-          placeholder="Email"
-          autocomplete="off"
-          v-model="form.email"
-        />
-        <span
-          v-for="message in validations.email"
-          class="text-red-500 text-xs"
-          >{{ message }}</span
-        >
-      </div>
-      <div class="flex flex-col justify-start items-start">
-        <label for="">Password</label>
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          autocomplete="off"
-          v-model="form.password"
-        />
-        <span
-          v-for="message in validations.password"
-          class="text-red-500 text-xs"
-          >{{ message }}</span
-        >
-      </div>
-      <div class="flex flex-col justify-start items-start mt-2">
-        <button @click="thisLogin" class="py-2 px-3 w-full bg-black text-white">
-          Submit
-        </button>
-      </div>
-      <div class="flex flex-col justify-start items-start mt-2">
-        <NuxtLink class="text-xs underline" to="/register">You already have an account?</NuxtLink>
-      </div>
+    </div>
+    <div class="bg-gray-800">
+
     </div>
   </div>
 </template>
 
 <script>
-import { useAuthStore } from '~~/stores/auth';
+import { useAuthStore } from "~~/stores/auth";
 
 export default {
   setup() {
-    const authStore = useAuthStore()
-    return { authStore }
+    definePageMeta({
+      middleware: ["no-auth"],
+    });
+    const authStore = useAuthStore();
+    return { authStore };
   },
   data() {
     return {
@@ -79,16 +127,14 @@ export default {
       var response = await this.authStore.login(credentials);
       if (!response.ok && response._data && response._data.errors) {
         Object.keys(response._data.errors).forEach((key) => {
-            this.validations[key] = response._data.errors[key];
+          this.validations[key] = response._data.errors[key];
         });
       } else {
-        this.authStore.user=response;
-        navigateTo('/')
+        this.authStore.user = response;
+        navigateTo("/");
       }
     },
-    resetErrors() {
-      
-    },
+    resetErrors() {},
   },
 };
 </script>

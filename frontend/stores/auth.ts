@@ -24,7 +24,7 @@ export const useAuthStore = defineStore("auth_store", {
       return response;
     },
     async register(credentials: object) {
-      var response = await $larafetch("/login", {
+      var response = await $larafetch("/register", {
         response: true,
         method: "post",
         body: credentials,

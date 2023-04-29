@@ -54,7 +54,7 @@ export async function $larafetch<T, R extends ResponseType = "json">(
       headers,
       credentials: "include",
     });
-  } catch (error:any) {
+  } catch (error: any) {
     if (!(error instanceof FetchError)) throw error;
     if (
       redirectIfNotAuthenticated &&
@@ -65,9 +65,9 @@ export async function $larafetch<T, R extends ResponseType = "json">(
     if (redirectIfNotVerified && [409].includes(error?.response?.status)) {
       await navigateTo("/account-verify");
     }
-    if ([422].includes(error?.response?.status) && error.response && error.response._data) {
-      return error.response;
-    }
+    // if ([422, 404].includes(error?.response?.status) && error.response) {
+    //   return processErrorResponse(error.response);
+    // }
     throw error;
   }
 }
@@ -83,4 +83,17 @@ function getCookie(name: string) {
     new RegExp("(^|;\\s*)(" + name + ")=([^;]*)")
   );
   return match ? decodeURIComponent(match[3]) : null;
+}
+function processErrorResponse(response) {
+  response.formErrors = false;
+  response.laravelErrors = false;
+  response.undefinedErrors = false;
+  if (!response.ok && response._data && response._data.errors) {
+    response.formErrors = true;
+  } else if (!response.ok && response._data && response._data.message) {
+    response.laravelErrors = true;
+  } else {
+    response.undefinedErrors = true;
+  }
+  return response;
 }

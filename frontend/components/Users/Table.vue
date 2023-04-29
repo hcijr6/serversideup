@@ -111,7 +111,7 @@
               >
               <div class="flex flex-col gap-[1px] transition-all ease-out">
                 <span
-                  class="px-1 border hover:border-gray-800 rounded-t transition-all ease-out drop-shadow-sm cursor-pointer"
+                  class="px-1 border hover:border-gray-800 rounded-t transition-all ease-out cursor-pointer"
                   :class="[
                     actualRequest.order &&
                     tableHeader.field == actualRequest.order.field &&
@@ -124,7 +124,7 @@
                   <ChevronUpIcon class="h-3 w-3"></ChevronUpIcon>
                 </span>
                 <span
-                  class="px-1 border hover:border-gray-800 rounded-b transition-all ease-out drop-shadow-sm cursor-pointer"
+                  class="px-1 border hover:border-gray-800 rounded-b transition-all ease-out cursor-pointer"
                   :class="[
                     actualRequest.order &&
                     tableHeader.field == actualRequest.order.field &&
@@ -143,7 +143,7 @@
         </tr>
         <tr>
           <th class="text-left px-2">
-            <input type="checkbox" name="" id="" />
+            <input type="checkbox" class="accent-black" name="" id="" />
           </th>
           <th
             v-for="(tableFilter, index) in actualRequest.filters"
@@ -178,7 +178,7 @@
           v-for="user in tableData"
         >
           <td class="px-2">
-            <input type="checkbox" class="" name="" id="" />
+            <input type="checkbox" class="accent-black h-3 w-3" name="" id="" />          
           </td>
           <td class="font-semibold py-2 pr-2 text-sm">{{ user.name }}</td>
           <td class="py-2 pr-2 text-sm underline">{{ user.email }}</td>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\TaskController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 /*
@@ -17,4 +18,5 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'v1'], function(){
     Route::get('/user', [UserController::class, 'show']);
     Route::post('/user/getTable', [UserController::class, 'getTable']);
+    Route::resource('tasks', TaskController::class);
 });
