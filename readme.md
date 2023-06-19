@@ -1,19 +1,35 @@
-# Example of TODO.md
+# ROADMAP
 
-This is an example of TODO.md
+## BRANCH onlyAuth
 
-View the raw content of this file to understand the format.
+### BACK
 
-### Todo
+- [x] SET UP LAST LARAVEL VERSION
+- [x] SET UP ENV
+- [x] SET UP SANCTUM API
+- [x] SET UP AUTH API ROUTES AND TEST API AUTH
+- [ ] SET UP USER CRUD API CONTROLLER InfyOmLabs/laravel-generator
 
-- [ ] Work on the website ~3d #feat @john 2020-03-20  
-- [ ] Fix the homepage ~1d #bug @jane  
-  - [ ] Sub-task or description  
+### FRONTEND
 
-### In Progress
+- [ ] SET UP LAST NUXT3 VERSION
+- [ ] SET UP ENV
+- [ ] ADD $larafetch,submitRequest()
+- [ ] TAILWINDCSS
+- [ ] PINIA
+- [ ] SET AUTH STORE AND TEST MIDDLEWARE
+- [ ] CREATE HOME PAGE (PUBLIC)
+- [ ] CREATE PROFILE (AUTH)
+- [ ] CREATE LOGIN, REGISTER, EMAIL VERIFICATION AND FORGOT PASSWORD
 
-- [ ] Work on Github Repo [JIRA-345]  
+## BRANCH authTranslations
 
-### Done ✓
+### BACK
+- [ ] ?? SET UP INTERNATIONALIZATION OF API MESSAGE (SERVER / CLIENT)
+- [ ] SET UP Post Migration title,description,user_id
+- [ ] SET UP Post MODEL CRUD API CONTROLLER InfyOmLabs/laravel-generator
+- [ ] SET UP INTERNATIONALIZATION for Post content
 
-- [x] Create my first TODO.md  
+### FRONT
+- [ ] ?? SET UP INTERNATIONALIZATION OF API MESSAGE (SERVER / CLIENT)
+- [ ] SET UP CRUD WITH INTERNATIONALIZATION
